@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播图</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <style type="text/css">
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .uli {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        overflow: hidden;
+      }
+      .uli li > img {
+        position: relative;
+        left: 0px;
+        top: 0px;
+        height: 300px;
+      }
+      .uli li {
+        width: 300px;
+        height: 300px;
+        list-style: none;
+      }
+      .a1 {
+        position: absolute;
+        top: 100px;
+        left: 0;
+        cursor: pointer;
+        font-size: 50px;
+      }
+      .a2 {
+        position: absolute;
+        top: 100px;
+        left: 260px;
+        cursor: pointer;
+        font-size: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 设置ul li 中 图片的数量 饮料的数量-->
+    <ul class="uli">
+      <li><img src="./images/1.jpg" alt="" /></li>
+      <li><img src="./images/2.jpg" alt="" /></li>
+      <li><img src="./images/3.jpg" alt="" /></li>
+    </ul>
+    <!-- 两个 div 中的 span 控制右边的便签和左边的标签为点击事件 -->
+    <div class="pa1">
+      <span class="a1"><</span>
+      <span class="a2">></span>
+    </div>
+    <script type="text/javascript">
+      // 写一个入口函数
+      $(function () {
+        // 设置图片的大小
+        var img = 300
+        // 设置索引为 0
+        var index = 0
+        // 设置图片的数量的长度
+        var option = $('.uli>li img').length
+        // 左边部分开始
+        $('.a2').click(function () {
+          // 再点击事件里面执行回调函数
+          left()
+        })
+        // 函数名称 lest
+        function left() {
+          // index的索引值为 0 当他小于图片的长度的时候 就让他执行 ++ option要执行减 1 否则会有一张空白的页面
+          if (index < option - 1) {
+            index++
+          } else {
+            index = 0
+          }
+          move()
+        }
+        // 左边部分结束
+        // 右边部分开始
+        $('.a1').click(function () {
+          // 再点击事件里面执行回调函数
+          right()
+        })
+        function right() {
+          // index的索引值为 0 当他大于图片的长度的时候 就让他执行 --
+          if (index > 0) {
+            index--
+          } else {
+            index = option - 1
+          }
+          move()
+        }
+        // right left函数里面都有 move 就等于你点击你的 index 索引的时候为多少数值就会有几个图片滑过  500 为时间
+        function move() {
+          var a = -index * img + 'px'
+          $('.uli li>img').animate({ left: a }, 500)
+        }
+      })
+    </script>
+  </body>
+</html>
